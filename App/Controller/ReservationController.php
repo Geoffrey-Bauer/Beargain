@@ -144,8 +144,7 @@ class ReservationController extends Controller
   {
     $form_result = new FormResult();
     $user_id = Session::get(Session::USER)->id;
-
-    // Appel de la méthode qui désactive la pizza
+		
     $deleteReservationUser = AppRepoManager::getRm()->getReservationsRepository()->deleteReservationUser($id);
 
     // On vérife le retour de la méthode
@@ -158,7 +157,6 @@ class ReservationController extends Controller
     //si on a des erreur on les met en sessions
     if ($form_result->hasErrors()) {
       Session::set(Session::FORM_RESULT, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/reservation/' . $user_id);
     }
 
@@ -166,7 +164,6 @@ class ReservationController extends Controller
     if ($form_result->getSuccessMessage()) {
       Session::remove(Session::FORM_RESULT);
       Session::set(Session::FORM_SUCCESS, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/reservation/' . $user_id);
     }
   }
@@ -175,8 +172,7 @@ class ReservationController extends Controller
   {
     $form_result = new FormResult();
     $user_id = Session::get(Session::USER)->id;
-
-    // Appel de la méthode qui désactive la pizza
+		
     $deleteReservationUser = AppRepoManager::getRm()->getReservationsRepository()->deleteReservationHote($id);
 
     // On vérife le retour de la méthode
@@ -189,7 +185,6 @@ class ReservationController extends Controller
     //si on a des erreur on les met en sessions
     if ($form_result->hasErrors()) {
       Session::set(Session::FORM_RESULT, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/list-order/' . $user_id);
     }
 
@@ -197,7 +192,6 @@ class ReservationController extends Controller
     if ($form_result->getSuccessMessage()) {
       Session::remove(Session::FORM_RESULT);
       Session::set(Session::FORM_SUCCESS, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/list-order/' . $user_id);
     }
   }

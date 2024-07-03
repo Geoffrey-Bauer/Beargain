@@ -193,7 +193,7 @@ class AnnonceController extends Controller
     if (empty($id) || empty($array_equipements)) {
       $form_result->addError(new FormError('Veuillez remplir tous les champs'));
     } else {
-      // Suppression des anciens ingrédients de la pizza
+			
       $deleteLogementEquipement = AppRepoManager::getRm()->getLogementEquipementRepository()->deleteLogementEquipement($id);
 
       // Vérification de la suppression des anciens ingrédients
@@ -207,8 +207,7 @@ class AnnonceController extends Controller
             'logement_id' => intval($id),
             'equipement_id' => intval($equipement_id)
           ];
-
-          // Insertion des nouveaux ingrédients de la pizza
+					
           $logement_equipements = AppRepoManager::getRm()->getLogementEquipementRepository()->insertLogementEquipement($data_logement_equipements);
 
           // Vérification de l'insertion des ingrédients
@@ -226,8 +225,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);
@@ -250,7 +248,6 @@ class AnnonceController extends Controller
       $form_result->addError(new FormError('Veuillez remplir tous les champs requis.'));
     } else {
 
-      // Mise à jour du nom de la pizza
       $data_logement = [
         'id' => intval($logement_id),
         'title' => htmlspecialchars(trim($title))
@@ -259,9 +256,9 @@ class AnnonceController extends Controller
       $updateLogementTitle = AppRepoManager::getRm()->getLogementRepository()->updateLogementTitle($data_logement);
 
       if (!$updateLogementTitle) {
-        $form_result->addError(new FormError('Erreur lors de la modification du nom de la pizza.'));
+        $form_result->addError(new FormError('Erreur lors de la modification du titre'));
       } else {
-        $form_result->addSuccess(new FormSuccess('Nom de la pizza modifié avec succès'));
+        $form_result->addSuccess(new FormSuccess('Titre modifié avec succès'));
       }
     }
 
@@ -270,8 +267,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $logement_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);
@@ -293,8 +289,7 @@ class AnnonceController extends Controller
     if (empty($description) || empty($logement_id)) {
       $form_result->addError(new FormError('Veuillez remplir tous les champs requis.'));
     } else {
-
-      // Mise à jour du nom de la pizza
+			
       $data_logement = [
         'id' => intval($logement_id),
         'description' => htmlspecialchars(trim($description))
@@ -303,9 +298,9 @@ class AnnonceController extends Controller
       $updateLogementTitle = AppRepoManager::getRm()->getLogementRepository()->updateLogementDescription($data_logement);
 
       if (!$updateLogementTitle) {
-        $form_result->addError(new FormError('Erreur lors de la modification du nom de la pizza.'));
+        $form_result->addError(new FormError('Erreur lors de la modification du Titre.'));
       } else {
-        $form_result->addSuccess(new FormSuccess('Nom de la pizza modifié avec succès'));
+        $form_result->addSuccess(new FormSuccess('Titre modifié avec succès'));
       }
     }
 
@@ -314,8 +309,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $logement_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);
@@ -342,7 +336,7 @@ class AnnonceController extends Controller
       $form_result->addError(new FormError('Veuillez remplir tous les champs requis.'));
     } else {
 
-      // Mise à jour du nom de la pizza
+   
       $data_logement = [
         'id' => intval($logement_id),
         'price_per_night' => floatval($price_per_night),
@@ -355,9 +349,9 @@ class AnnonceController extends Controller
       $updateLogementDetail = AppRepoManager::getRm()->getLogementRepository()->updateLogementDetail($data_logement);
 
       if (!$updateLogementDetail) {
-        $form_result->addError(new FormError('Erreur lors de la modification du nom de la pizza.'));
+        $form_result->addError(new FormError('Erreur lors de la modification du Titre.'));
       } else {
-        $form_result->addSuccess(new FormSuccess('Nom de la pizza modifié avec succès'));
+        $form_result->addSuccess(new FormSuccess('Titre modifié avec succès'));
       }
     }
 
@@ -366,8 +360,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $logement_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);
@@ -393,8 +386,7 @@ class AnnonceController extends Controller
     if (empty($adress) || empty($zip_code) || empty($city) || empty($country) || empty($phone) || empty($logement_id)) {
       $form_result->addError(new FormError('Veuillez remplir tous les champs requis.'));
     } else {
-
-      // Mise à jour du nom de la pizza
+			
       $data_logement = [
         'id' => intval($logement_id),
         'adress' => htmlspecialchars(trim($adress)),
@@ -407,9 +399,9 @@ class AnnonceController extends Controller
       $updateLogementDetail = AppRepoManager::getRm()->getInformationRepository()->updateLogementAdress($data_logement);
 
       if (!$updateLogementDetail) {
-        $form_result->addError(new FormError('Erreur lors de la modification du nom de la pizza.'));
+        $form_result->addError(new FormError('Erreur lors de la modification du Titre.'));
       } else {
-        $form_result->addSuccess(new FormSuccess('Nom de la pizza modifié avec succès'));
+        $form_result->addSuccess(new FormSuccess('Titre modifié avec succès'));
       }
     }
 
@@ -418,8 +410,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $logement_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);
@@ -452,8 +443,7 @@ class AnnonceController extends Controller
       // Redéfinition d'un nom unique pour l'image
       $filename = uniqid() . '_' . $image_name;
       $imgPathPublic = PATH_ROOT . $public_path . $filename;
-
-      // Construction des données de la pizza
+			
       $data_logement = [
         'id' => intval($id),
         'label' => htmlspecialchars(trim($label)),
@@ -467,9 +457,9 @@ class AnnonceController extends Controller
 
         // Vérification du succès de l'opération
         if (!$updateLogementMedia) {
-          $form_result->addError(new FormError('Erreur lors de la modification de l\'image de la pizza'));
+          $form_result->addError(new FormError('Erreur lors de la modification de l\'image de \'annonce'));
         } else {
-          $form_result->addSuccess(new FormSuccess('Image de la pizza modifiée avec succès'));
+          $form_result->addSuccess(new FormSuccess('Image de \'annonce modifiée avec succès'));
         }
       } else {
         $form_result->addError(new FormError('Erreur lors de l\'upload de l\'image'));
@@ -481,8 +471,7 @@ class AnnonceController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/my-annonce/update/' . $user_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);

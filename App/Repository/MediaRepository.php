@@ -13,7 +13,7 @@ class MediaRepository extends Repository
   }
 
   /**
-   * méthode qui permet de récupérer le prix d'une pizza grace à son id avec sa taille associée
+   * méthode qui permet de récupérer le prix d'une annonce grace à son id
    * @param int $logement_id
    * @return array
    */
@@ -34,8 +34,7 @@ class MediaRepository extends Repository
 
     //on vérifie que la requete est bien executée
     if (!$stmt) return $array_result;
-
-    //on execute la requete en passant l'id de la pizza
+		
     $stmt->execute(['id' => $logement_id]);
 
     while ($row = $stmt->fetch()) {

@@ -7,7 +7,6 @@ use App\Controller\FilterController;
 use App\Controller\HomeController;
 use App\Controller\AnnonceController;
 use App\Controller\OrderController;
-use App\Controller\PizzaController;
 use App\Controller\ReservationController;
 use App\Controller\UserController;
 use Core\Database\DatabaseConfigInterface;

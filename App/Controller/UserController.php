@@ -15,7 +15,7 @@ class UserController extends Controller
 {
   /*---------------------------- FUNCTION VIEW CREATION D'ANNONCE ------------------------*/
   /**
-   * Méthode pour afficher le formulaire de création de Pizza Custom
+   * Méthode pour afficher le formulaire de création d'une annonce'
    * @param int $id
    * @return void
    */
@@ -34,14 +34,12 @@ class UserController extends Controller
   /*---------------------------- FUNCTION VIEW DETAIL D'ANNONCE ------------------------*/
   public function listAnnonceCustom(int $id): void
   {
-    //le controlleur doit récupérer le tableau de pizzas pour le donnée à la vue
     $view_data = [
       'logements' => AppRepoManager::getRm()->getLogementRepository()->getAnnonceByUser($id),
       'form_result' => Session::get(Session::FORM_RESULT),
       'form_success' => Session::get(Session::FORM_SUCCESS)
     ];
-
-    // On doit récupérer les pizzas custom de l'utilisateur getPizzaByUser
+		
     $view = new View('user/mesAnnonces');
     $view->render($view_data);
   }
@@ -51,12 +49,11 @@ class UserController extends Controller
   {
     $form_result = new FormResult();
     $user_id = Session::get(Session::USER)->id;
-
-    // Appel de la méthode qui désactive la pizza
-    $deletePizza = AppRepoManager::getRm()->getLogementRepository()->deleteAnnonce($id);
+		
+    $deleteAnnonce = AppRepoManager::getRm()->getLogementRepository()->deleteAnnonce($id);
 
     // On vérife le retour de la méthode
-    if (!$deletePizza) {
+    if (!$deleteAnnonce) {
       $form_result->addError(new FormError('Erreur lors de la suppression de l\'annonce.'));
     } else {
       $form_result->addSuccess(new FormSuccess('Votre Annonce à bien été supprimée.'));
@@ -65,7 +62,6 @@ class UserController extends Controller
     //si on a des erreur on les met en sessions
     if ($form_result->hasErrors()) {
       Session::set(Session::FORM_RESULT, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/my-annonce/' . $user_id);
     }
 
@@ -73,7 +69,6 @@ class UserController extends Controller
     if ($form_result->getSuccessMessage()) {
       Session::remove(Session::FORM_RESULT);
       Session::set(Session::FORM_SUCCESS, $form_result);
-      //on redirige sur la page List Page Custom Pizza
       self::redirect('/user/my-annonce/' . $user_id);
     }
   }
@@ -126,8 +121,7 @@ class UserController extends Controller
     if (empty($adress) || empty($zip_code) || empty($city) || empty($country) || empty($phone))  {
       $form_result->addError(new FormError('Veuillez remplir tous les champs requis.'));
     } else {
-
-      // Mise à jour du nom de la pizza
+			
       $data_user = [
         'id' => $information_id, // Assurez-vous que $user_id est défini correctement
         'adress' => htmlspecialchars(trim($adress)),
@@ -151,8 +145,7 @@ class UserController extends Controller
       Session::set(Session::FORM_RESULT, $form_result);
       self::redirect('/user/info/' . $user_id);
     }
-
-    // Redirection vers la liste des pizzas en cas de succès
+		
     if ($form_result->hasSuccess()) {
       Session::set(Session::FORM_SUCCESS, $form_result);
       Session::remove(Session::FORM_RESULT);

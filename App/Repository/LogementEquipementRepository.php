@@ -17,7 +17,7 @@ class LogementEquipementRepository extends Repository
 
   /**
    * méthode qui récupère les équipements du logement grâce à son id
-   * @param int $pizza_id
+   * @param int $logement_id
    * @return array
    */
   public function getEquipementByAnnonceId(int $logement_id):array
@@ -39,8 +39,7 @@ class LogementEquipementRepository extends Repository
 
     //on vérifie que la requete est bien executée
     if(!$stmt) return $array_result;
-
-    //on execute la requete en passant l'id de la pizza
+		
     $stmt->execute(['id' => $logement_id]);
 
     //on récupère les résultats

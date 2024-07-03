@@ -37,8 +37,7 @@ class LogementRepository extends Repository
     if (!$stmt) return $array_result;
     //on récupère les données que l'on met dans notre tableau
     while ($row_data = $stmt->fetch()) {
-
-      //a chaque passage de la boucle on instancie un objet pizza
+			
       $logement = new Logement($row_data);
       $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getMediaByAnnonceId($logement->id);
       $array_result[]=$logement;
@@ -49,8 +48,8 @@ class LogementRepository extends Repository
 
   /*---------------------------- FUNCTION SQL RECUP ANNONCES ID ------------------------*/
   /**
-   * méthode qui permet de récupérer une pizza grace à son id
-   * @param int $pizza_id
+   * méthode qui permet de récupérer une annonce grace à son id
+   * @param int $logement_id
    * @return ?Logement
    */
   public function getAnnonceById(int $logement_id): ?Logement
@@ -75,26 +74,23 @@ class LogementRepository extends Repository
 
     //si je n'ai pas de résultat, je retourne null
     if(!$result) return null;
-
-    //si j'ai un résultat, j'instancie un objet Pizza
+		
     $logement = new Logement($result);
-
-    //on va hydrater les ingredients de la pizza
+		
     $logement->equipements = AppRepoManager::getRm()->getLogementEquipementRepository()->getEquipementByAnnonceId($logement_id);
-    //on va hydrater les prix de la pizza
+		
     $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getMediaByAnnonceId($logement_id);
 
     $logement->information = AppRepoManager::getRm()->getInformationRepository()->readById(Information::class, $logement->information_id);
 
     $logement->media = AppRepoManager::getRm()->getMediaRepository()->readById(Media::class, $logement->id);
-
-    //je retourne l'objet Pizza
+		
     return $logement;
   }
 
   /*---------------------------- FUNCTION SQL RECUP ANNONCES USER ------------------------*/
   /**
-   * Méthode qui permet de récupérer les pizzas de l'utilisateur
+   * Méthode qui permet de récupérer les annonces de l'utilisateur
    * @param int $id
    * @return array
    */
@@ -121,8 +117,7 @@ class LogementRepository extends Repository
     // On récupère les résultats
     while($row_data = $stmt->fetch()){
       $logement = new Logement($row_data);
-
-      // On va hydrater les ingrédients de la pizza
+			
       $logement->equipements = AppRepoManager::getRm()->getLogementEquipementRepository()->getEquipementByAnnonceId($logement->id);
 
       // On va hydrater les prix
@@ -184,7 +179,7 @@ class LogementRepository extends Repository
   }
 
   /**
-   * Met à jour le nom de la pizza
+   * Met à jour le Titre de l'annonce
    * @param array $data
    * @return ?bool
    */
@@ -260,8 +255,7 @@ class LogementRepository extends Repository
     $stmt->execute(['word' => $cityParam]);
 
     while ($row_data = $stmt->fetch()) {
-
-      //a chaque passage de la boucle on instancie un objet pizza
+			
       $logement = new Logement($row_data);
       $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getMediaByAnnonceId($logement->id);
       $array_result[]=$logement;
